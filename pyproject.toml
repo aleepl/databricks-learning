@@ -1,0 +1,93 @@
+[project]
+name = "databricks_learning"
+version = "0.1.0"
+description = "Learning databricks."
+authors = [
+    {name = "aleksandrovic.palma"}
+]
+requires-python = "~=3.11.0"
+readme = "README.md"
+license = "MIT"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "pyspark==3.5.7",
+    "pydantic==2.11.9",
+    "pydantic-settings==2.11.0",
+    "requests==2.32.5",
+]
+
+[tool.black]
+line-length = 120
+target_version = ["py311"]
+
+[tool.isort]
+profile = "black"
+line_length = 120
+
+[tool.ruff.lint]
+ignore = [
+    "E722", # bare-except
+    "E712", # true-false-comparison, disabled because pandas overloads "==" operator
+]
+
+[tool.pylint.messages_control]
+max-line-length = 120
+disable = [
+    "bare-except",
+    "broad-except",
+    "duplicate-code",
+    "import-error",
+    "invalid-name",
+    "line-too-long",
+    "missing-docstring",
+    "redefined-outer-name",
+    "too-few-public-methods",
+    "too-many-arguments",
+    "too-many-branches",
+    "too-many-locals",
+    "too-many-nested-blocks",
+    "too-many-return-statements",
+    "too-many-statements",
+]
+extension-pkg-allow-list = ["lxml"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
+[tool.sqlfluff.core]
+dialect = "postgres"
+templater = "raw"
+rules = "all"
+max_line_length = 120
+large_file_skip_byte_limit = 500000
+
+[tool.sqlfluff.indentation]
+tab_space_size = 4
+indent_unit = "space"
+
+[tool.uv.workspace]
+members = [
+    "src/pi_data_pipeline",
+]
+
+[dependency-groups]
+code_quality = [
+    "bandit==1.7.9",
+    "black==24.4.2",
+    "isort==5.13.2",
+    "pylint==3.1.0",
+    "ruff==0.4.5",
+    "sqlfluff==3.4.0",
+    "yamllint==1.37.1",
+]
+
+tests = [
+    "pytest==8.4.0",
+    "pytest-asyncio==1.0.0",
+    "pytest-mock==3.14.1",
+    "pytest-cov==6.2.1",
+]
