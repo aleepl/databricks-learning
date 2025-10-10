@@ -18,7 +18,8 @@ dependencies = [
     "pydantic==2.11.9",
     "pydantic-settings==2.11.0",
     "requests==2.32.5",
-    "boto3==1.40.47",
+    "boto3==1.40.50",
+    "botocore==1.40.50"
 ]
 
 [tool.black]
