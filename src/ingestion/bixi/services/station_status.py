@@ -5,9 +5,9 @@ from pathlib import Path
 from typing import List
 
 import requests
-from utils.s3_tools import S3Bucket
 
 from ingestion.bixi.models.station_status import StationStatus
+from utils.s3_tools import S3Bucket
 
 logger = logging.getLogger(__name__)
 
@@ -43,9 +43,7 @@ class StationStatusService:
 
         logger.info("Loading station status.")
         # Prepare filename and data payload
-        year, month, day = (
-            timestamp.year, timestamp.month, timestamp.day
-        )
+        year, month, day = (timestamp.year, timestamp.month, timestamp.day)
         unix_timestamp = int(timestamp.timestamp())
 
         # Load data to S3

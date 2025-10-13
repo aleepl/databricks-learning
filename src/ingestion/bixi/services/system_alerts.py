@@ -5,10 +5,10 @@ from pathlib import Path
 from typing import List
 
 import requests
-from utils.s3_tools import S3Bucket
 
 from ingestion.bixi.models.system_alerts import SystemAlerts
 from ingestion.bixi.settings import BixiSettings
+from utils.s3_tools import S3Bucket
 
 logger = logging.getLogger(__name__)
 
@@ -45,9 +45,7 @@ class SystemAlertsService:
 
         logger.info("Loading system alerts.")
         # Prepare filename and data payload
-        year, month, day = (
-            timestamp.year, timestamp.month, timestamp.day
-        )
+        year, month, day = (timestamp.year, timestamp.month, timestamp.day)
         unix_timestamp = int(timestamp.timestamp())
 
         # Load data to S3

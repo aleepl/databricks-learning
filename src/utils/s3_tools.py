@@ -1,8 +1,9 @@
-import logging
 import json
+import logging
+from typing import Any, Dict
+
 import boto3
 from botocore.exceptions import ClientError
-from typing import Any, Dict
 
 logger = logging.getLogger(__name__)
 
@@ -29,6 +30,6 @@ class S3Bucket:
                 error,
             )
 
-    def download_file(self):
-        """Download a file from the bucket."""
+    def fetch(self):
+        """Fetches a file from the bucket."""
         pass
