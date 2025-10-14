@@ -10,6 +10,3 @@ class BixiSettings(BaseSettings):
 
     # S3 Bucket
     s3_bucket_name: str = "databricks-playground-bucket-20251003"
-
-    class Config:
-        env_file = ".env"
