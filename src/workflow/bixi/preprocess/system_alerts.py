@@ -14,15 +14,11 @@ logger = logging.getLogger(__name__)
 
 
 @dataclass
-class SystemAlertsData:
-    alerts: List[SystemAlerts]
-
-@dataclass
-class SystemAlertsResponse:
+class SystemAlertsRepsonse:
     last_updated: int
     ttl: int
     version: str
-    data: SystemAlertsData
+    data: List[SystemAlerts]
 
 
 @dataclass
@@ -30,19 +26,19 @@ class SystemAlertsService:
     def __init__(self, settings) -> None:
         self._settings = BixiSettings()
 
-    def fetch(self) -> SystemAlertsResponse | None:
+    def fetch(self) -> SystemAlertsRepsonse | None:
         url = self._settings.station_info_url
         try:
             logger.info("Fetching system alerts.")
             response = requests.get(url, timeout=30)
             response.raise_for_status()
             data = response.json()
-            return SystemAlertsResponse(**data)
+            return SystemAlertsRepsonse(**data)
         except requests.RequestException as e:
             logger.error(f"Error fetching system alerts: {e}")
             return
 
-    def load(self, bucket_name, data: SystemAlertsResponse | None, timestamp: datetime = datetime.now()) -> None:
+    def load(self, bucket_name, data: SystemAlertsRepsonse | None, timestamp: datetime = datetime.now()) -> None:
         if data is None:
             logger.warning("No station data to load; skipping S3 upload.")
             return

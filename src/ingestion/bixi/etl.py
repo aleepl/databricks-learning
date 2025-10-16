@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 def etl() -> None:
-    logger.info("Starting ETL process for Bixi data.")
+    logger.info("Starting ETL ingestion process for Bixi data.")
 
     # Settings and params
     settings = BixiSettings()
@@ -34,7 +34,7 @@ def etl() -> None:
     system_alerts_service.load(bucket_name, system_alerts_data)
     vehicle_types_service.load(bucket_name, vehicle_types_data)
 
-    logger.info("Ending ETL process for Bixi data.")
+    logger.info("Ending ETL ingestion process for Bixi data.")
 
 
 if __name__ == "__main__":

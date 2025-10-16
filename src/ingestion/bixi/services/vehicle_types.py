@@ -12,13 +12,16 @@ from utils.s3_tools import S3Bucket
 
 logger = logging.getLogger(__name__)
 
+@dataclass
+class VehicleTypesData:
+    vehicle_types: List[VehiculeType]
 
 @dataclass
 class VehicleTypesResponse:
     last_updated: int
     ttl: int
     version: str
-    data: List[VehiculeType]
+    data: VehicleTypesData
 
 
 class VehicleTypesService:
@@ -48,6 +51,6 @@ class VehicleTypesService:
         unix_timestamp = int(timestamp.timestamp())
 
         # Load data to S3
-        filename = Path("vehicule_types", f"year={year}", f"month={month}", f"day={day}", f"{unix_timestamp}.json")
+        filename = Path("ingestion", "vehicule_types", f"year={year}", f"month={month}", f"day={day}", f"{unix_timestamp}.json")
         s3 = S3Bucket(bucket_name)
         s3.load(filename.as_posix(), asdict(data))

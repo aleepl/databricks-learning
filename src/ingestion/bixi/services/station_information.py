@@ -13,11 +13,15 @@ logger = logging.getLogger(__name__)
 
 
 @dataclass
+class StationInfoData:
+    stations: List[Station]
+
+@dataclass
 class StationInfoResponse:
     last_updated: int
     ttl: int
     version: str
-    data: List[Station]
+    data: StationInfoData
 
 
 class StationInfoService:
@@ -47,6 +51,6 @@ class StationInfoService:
         unix_timestamp = int(timestamp.timestamp())
 
         # Load data to S3
-        filename = Path("station_info", f"year={year}", f"month={month}", f"day={day}", f"{unix_timestamp}.json")
+        filename = Path("ingestion","station_info", f"year={year}", f"month={month}", f"day={day}", f"{unix_timestamp}.json")
         s3 = S3Bucket(bucket_name)
         s3.load(filename.as_posix(), asdict(data))
